@@ -22,14 +22,14 @@ jobs:
         release_name: Release ${{ github.ref }}
         draft: false
         prerelease: false
-
+ 
     - name: Get the Ref
       id: get-ref
       uses: ankitvgupta/ref-to-tag-action@master
       with:
         ref: ${{ github.ref }}
         head_ref: ${{ github.head_ref }}
-
+   
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
@@ -40,7 +40,8 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        # file: Dockerfile
-        # load: true
+        file: ./Dockerfile
+        load: true
+        push: false
         tags: panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
-    # - run: docker push panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
+    - run: docker push panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
