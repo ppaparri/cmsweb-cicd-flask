@@ -30,6 +30,29 @@ jobs:
         ref: ${{ github.ref }}
         head_ref: ${{ github.head_ref }}
    
+
+    - name: Build image
+      run: |
+        sed -i -e "s,ENV TAG=.*,ENV TAG=${{steps.get-ref.outputs.tag}},g" Dockerfile
+        docker build . --tag docker.pkg.github.com/panos512/cmsweb-cicd-flask/cmsweb-cicd-flask
+      
+    - name: Login to docker github registry
+      uses: docker/login-action@v1.6.0
+      with:
+        registry: docker.pkg.github.com
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish image
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: panos512/cmsweb-cicd-flask/cmsweb-cicd-flask
+        tag_with_ref: true
+
+
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
