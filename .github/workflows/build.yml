@@ -37,10 +37,10 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build and push
-      uses: docker/build-push-action
+      uses: docker/build-push-action@v2
       with:
         context: .
-        file: Dockerfile
-        load: true
+        # file: Dockerfile
+        # load: true
         tags: panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
     - run: docker push panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
