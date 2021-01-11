@@ -58,7 +58,8 @@ jobs:
     
     - run: pwd
     - run: ls -laht      
-    - run: tree -d ..      
+    - run: ls -R .. | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+
 
     - name: Build and push
       uses: docker/build-push-action@v2
