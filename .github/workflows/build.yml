@@ -62,4 +62,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
+        tags: panos512/cmsweb-cicd-flask:latest
+        # tags: panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
