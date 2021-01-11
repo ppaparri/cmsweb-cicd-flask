@@ -1,4 +1,4 @@
-# FROM tiangolo/uwsgi-nginx-flask:python3.6-alpine3.7
+FROM tiangolo/uwsgi-nginx-flask:python3.6-alpine3.7
 COPY ./app /app
 RUN apk --update add bash nano git
 ENV STATIC_URL /static
