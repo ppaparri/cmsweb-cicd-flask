@@ -45,5 +45,5 @@ jobs:
         push: true
         tags: panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
         build-args: |
-          COMMIT=$(git rev-parse --short HEAD)
+          COMMIT=${{$(git rev-parse --short HEAD)}}
               
