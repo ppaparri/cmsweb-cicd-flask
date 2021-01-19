@@ -39,7 +39,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
         repository: panos512/cmsweb-cicd-flask
-        tag_with_ref: true
+        tags: panos512/cmsweb-cicd-flask:${{steps.get-ref.outputs.tag}}
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
