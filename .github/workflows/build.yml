@@ -12,36 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-
-    - name: Upload binary
-      id: upload-cmsweb-cicd-flask
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./cmsweb-cicd-flask
-        asset_name: cmsweb-cicd-flask
-        asset_content_type: application/octet-stream
-
-
-    - name: Get the Ref
-      id: get-ref
-      uses: ankitvgupta/ref-to-tag-action@master
-      with:
-        ref: ${{ github.ref }}
-        head_ref: ${{ github.head_ref }}
-
     - name: Check out the repo
       uses: actions/checkout@v2
     - name: Push to GitHub Packages
@@ -52,6 +22,26 @@ jobs:
         registry: docker.pkg.github.com
         repository: panos512/cmsweb-cicd-flask/cmsweb-cicd-flask
         tag_with_ref: true
+
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    
+    - name: Get the Ref
+      id: get-ref
+      uses: ankitvgupta/ref-to-tag-action@master
+      with:
+        ref: ${{ github.ref }}
+        head_ref: ${{ github.head_ref }}
+
 
     - name: Login to DockerHub
       uses: docker/login-action@v1
