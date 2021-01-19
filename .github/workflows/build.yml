@@ -39,7 +39,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
         repository: panos512/cmsweb-cicd-flask
-        tags: panos512/cmsweb-cicd-flask/${{steps.get-ref.outputs.tag}}
+        tags: ${{steps.get-ref.outputs.tag}}
         build-args: |
           COMMIT=${{ github.sha }}
 
